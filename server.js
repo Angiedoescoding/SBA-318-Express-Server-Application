@@ -25,10 +25,10 @@ app.use('/public', express.static(path.join(__dirname, 'public')));         // S
 app.get('/', (req, res) => {                      // Message about all movies
         res.send('Find all movies here!')     
     })
-    
+
 //Handling errors in the middleware
 app.use((err, req, res, next) => {                      // Setting up error handling middleware using a callback function with 4 parameters. 
-    console.error(error.stack);                         // The error stack trace for checking the causeof  the issue/errors.
+    console.error(err.stack);                         // The error stack trace for checking the causeof  the issue/errors.
     res.status(500).send(`Something isn't working right. Please review.`)       // This will be shown when any error occurs during the request-response time.
 });                                                     // 500 - Internal Server Error status.
 
