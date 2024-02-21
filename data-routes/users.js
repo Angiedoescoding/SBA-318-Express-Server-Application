@@ -1,5 +1,5 @@
 const express = require('express');
-const router = express. Router();           // Creating a router instance
+const router = express.Router();           // Creating a router instance
 
 
 
