@@ -20,8 +20,8 @@ router
     .put((req, res) => {                       
     res.json({ message: `Update a movie review with ID ${req.params.id}.`});
     })
-    .delete((req, res) => {                   // Deletng a movie by ID
-        res.json({ message: `Deleting the movie review with ID ${res.params.id}.`});
+    .delete((req, res) => {                   // Deleting a movie by ID
+        res.json({ message: `Deleting the movie review with ID ${req.params.id}.`});
     })
 
 
