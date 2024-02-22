@@ -1,0 +1,40 @@
+body {
+    background-color: rgba(199, 241, 234, 0.372);
+    line-height: 30px;
+    font-size: 20px;
+    font-family: sans-serif;
+    padding: 25px 50px;
+}
+
+h1  {
+    color: blueviolet;
+    text-align: center;
+}
+
+a {
+color: #2000c0;
+}
+
+a:hover {
+color: #009cdb;
+}
+
+
+
+h2 {
+    color: chocolate;
+    text-align: center;
+} */
+
+form, label {
+    padding: 15px;
+}
+
+input {
+    margin-left: 20px;
+}
+
+button {
+    padding: 10px 15px;
+    border-radius: 20px;
+}

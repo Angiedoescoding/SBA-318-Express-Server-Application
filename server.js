@@ -8,9 +8,11 @@ const path = require('path');                           // Setting up to manipul
 const app = express();
 let PORT = 3000;
 
+// serve static files from the styles directory
+app.use(express.static("./styles"));
+
 // Middleware
 app.use(incomingReq); 
-
 
 // Routes
 app.use('/movies', moviesData);
@@ -20,11 +22,55 @@ app.use('/users', usersData);
 
 // Static files setup to get to (http://localhost:3000/public/index.html)
 
-app.use('/public', express.static(path.join(__dirname, 'public')));         // Serve static files from 'public' directory/route
+// app.use('/public', express.static(path.join(__dirname, 'public')));         // Serve static files from 'public' directory/route
 
-app.get('/', (req, res) => {                      // Message about all movies
-        res.send('Find all movies here!')     
-    })
+// app.get('/', (req, res) => {                      // Message about all movies
+//         res.send('Find all movies here!')     
+//     })
+
+
+
+
+// require the filesystem module
+const fs = require("fs");
+// define the template engine
+app.engine("perscholas", (filePath, options, callback) => {
+  fs.readFile(filePath, (err, content) => {
+    if (err) return callback(err);
+
+    // Here, we take the content of the template file, convert it to a string, and replace sections of
+    // it with the values being passed to the engine.
+    const rendered = content
+      .toString()
+      .replaceAll("#title#", `${options.title}`)
+      .replaceAll("#secondtitle#", `${options.secondtitle}`)
+      .replace("#content#", `${options.content}`);
+    return callback(null, rendered);
+  });
+});
+
+app.set("views", "./views"); // specify the views directory
+app.set("view engine", "perscholas"); // register the template engine
+
+app.get("/", (req, res) => {
+  const options = {
+    title: "Movie Reviews",
+    secondtitle: "Hello! Welcome to our Movie reviews website!",
+    content:
+      "Here you can: <br><br>  \
+      <a href='/data-routes/movies.js'>View movies.</a> <br> \
+      <a href='/data-routes/reviews.js'>View movies reviews.</a> <br> \
+      <a href='/data-routes/users.js'>See our top reviews contributors.</a> <br><br>\
+      You can also leave your own review! \
+      <br><br>\
+      We hope you will love it here! Enjoy!",
+  };
+
+  res.render("index", options);
+});
+
+
+
 
 //Handling errors in the middleware
 app.use((err, req, res, next) => {                      // Setting up error handling middleware using a callback function with 4 parameters. 
