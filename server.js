@@ -8,6 +8,8 @@ const path = require('path');                           // Setting up to manipul
 const app = express();
 let PORT = 3000;
 
+const movies = [{title: "The Fifth Element", year: 1997, rating: 9}, {title: "The Chestnut Man", year: 2021, rating: 9}, {title: "Home Alone", year: 1990, rating: 9}]
+
 // serve static files from the styles directory
 app.use(express.static("./styles"));
 
@@ -18,16 +20,6 @@ app.use(incomingReq);
 app.use('/movies', moviesData);
 app.use('/reviews', reviewsData);
 app.use('/users', usersData);
-
-
-// Static files setup to get to (http://localhost:3000/public/index.html)
-
-// app.use('/public', express.static(path.join(__dirname, 'public')));         // Serve static files from 'public' directory/route
-
-// app.get('/', (req, res) => {                      // Message about all movies
-//         res.send('Find all movies here!')     
-//     })
-
 
 
 
@@ -51,6 +43,12 @@ app.engine("perscholas", (filePath, options, callback) => {
 
 app.set("views", "./views"); // specify the views directory
 app.set("view engine", "perscholas"); // register the template engine
+
+app.get("/:number", (req, res) => {
+    
+    res.render("index", movies[req.params.number])
+})
+
 
 app.get("/", (req, res) => {
   const options = {
@@ -83,3 +81,11 @@ app.use((err, req, res, next) => {                      // Setting up error hand
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}.`);
 });
+
+
+
+// Static files setup to get to (http://localhost:3000/public/index.html)
+// app.use('/public', express.static(path.join(__dirname, 'public')));         // Serve static files from 'public' directory/route
+// app.get('/', (req, res) => {                      // Message about all movies
+//         res.send('Find all movies here!')     
+//     })
