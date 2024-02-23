@@ -1,6 +1,27 @@
 const express = require('express');
 const router = express.Router();           // Creating a router instance
 
+const reviews = [
+    { id: 1, movieId: 1, rating: 9, comment: "Great movie!" },
+    { id: 2, movieId: 2, rating: 8, comment: "Good storyline." },
+    { id: 3, movieId: 3, rating: 10, comment: "Must-watch!" }
+];
+
+// GET route for retrieving all reviews or reviews by movie ID with query parameters
+router.get('/', (req, res) => {
+    const { movieId } = req.query;
+
+    // Filtering reviews based on query parameter (movieId)
+    let filteredReviews = reviews;
+    if (movieId) {
+        filteredReviews = filteredReviews.filter(review => review.movieId == movieId);
+    }
+
+    res.json(filteredReviews);
+});
+
+
+
 router
     .route('/')
     .get((req, res) => {                                // Getting all reviews

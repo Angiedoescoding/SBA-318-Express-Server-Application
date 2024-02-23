@@ -8,7 +8,7 @@ const path = require('path');                           // Setting up to manipul
 const app = express();
 let PORT = 3000;
 
-const movies = [{title: "The Fifth Element", year: 1997, rating: 9}, {title: "The Chestnut Man", year: 2021, rating: 9}, {title: "Home Alone", year: 1990, rating: 9}]
+
 
 // serve static files from the styles directory
 app.use(express.static("./styles"));
