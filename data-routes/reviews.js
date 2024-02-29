@@ -28,7 +28,18 @@ router
         res.json({ message: 'Get all reviews.'});   
     })
     .post((req, res) => {                               // Creating a new review
-        res.json({ message: 'Create a new review.'});
+        let { movieId, rating, comment } = req.body;
+
+        // Generating a new movie review so it then gets added to the array of reviews
+        const newReview = {
+            id: reviews.length + 1,
+            movieId,
+            rating,
+            comment
+        };
+        reviews.push(newReview);
+
+        res.json({ message: 'Successfully created a new review.', review: newReview});
     });
 
 // Get reviews by movie ID
@@ -41,7 +52,7 @@ router
     .put((req, res) => {                       
     res.json({ message: `Update a movie review with ID ${req.params.id}.`});
     })
-    .delete((req, res) => {                   // Deleting a movie by ID
+    .delete((req, res) => {                   // Deleting a movie review by ID
         res.json({ message: `Deleting the movie review with ID ${req.params.id}.`});
     })
 
